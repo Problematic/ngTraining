@@ -1,0 +1,15 @@
+<div class="todo-list">
+<h3><ng-pluralize count="todoCount" when="{
+	0: '0 todonts',
+	1: '1 todo',
+	other: '{} todos'
+}"></ng-pluralize></h3>
+<ul>
+	<li ng-repeat="todo in todos | orderBy:['complete','name']">
+		<input type="checkbox" ng-model="todo.complete"> <span ng-bind="todo.name" ng-style="{'text-decoration': todo.complete ? 'line-through' : ''}"></span> <a href ng-click="rmTodo(todo)">x</a>
+	</li>
+</ul>
+<form name="todoForm" ng-submit="createTodo()">
+	<input required type="text" name="name" ng-model="form.name">
+		</form>
+</div>
