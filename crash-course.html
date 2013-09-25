@@ -1,0 +1,59 @@
+<!doctype html>
+<html ng-app="TrainingApp">
+<head>
+	<title>AngularJS Fundamentals: Superheroic Training</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container" ng-controller="MainCtrl">
+		<input type="text" ng-model="name" placeholder="name">
+		<input type="text" ng-model="foo.bar" placeholder="foo.bar">
+
+		<p>Hello, {{ name || 'world' }}!</p> <!-- this is an "angular expression" being bound to the page -->
+
+		<ul>
+			<!-- ngRepeat creates a child scope, which inherits prototypally -->
+			<!-- this means that objects will be references, but scalars will not -->
+			<li ng-repeat="thing in things">
+				{{ thing }}, {{ name }}, {{ foo.bar }}<br>
+				<input type="text" ng-model="name" placeholder="name"><br>
+				<input type="text" ng-model="foo.bar" placeholder="foo.bar">
+			</li>
+		</ul>
+
+		<!-- Angular will create new objects in scope if it must -->
+		<input type="text" ng-model="imaginary.dragons" placeholder="I am an imaginary thing">
+
+		<hr>
+
+<pre>
+$scope.name: {{ name }}
+$scope.foo: {{ foo }}
+$scope.imaginary: {{ imaginary }}
+</pre>
+	</div>
+
+	<hr>
+	<footer ng-controller="FooterCtrl">
+		<!-- Any number of controllers can be bound to the page, but they don't share scope -->
+		Made for {{ company }} with love by {{ name }}.
+	</footer>
+
+	<script src="http://code.angularjs.org/1.2.0-rc.2/angular.js"></script>
+	<script>
+	(function (angular) {
+		angular.module('TrainingApp', [])
+			.controller('MainCtrl', function ($scope) {
+				$scope.things = [1, 'a', { troz: 'zort' }];
+
+				$scope.foo = {
+				bar: 'baz'
+				};
+			})
+			.controller('FooterCtrl', function ($scope) {
+				$scope.company = 'AtTask';
+			});
+	}(angular));
+	</script>
+</body>
+</html>
